@@ -4,6 +4,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { cn } from "@acme/ui";
 import { ThemeProvider } from "@acme/ui/theme";
 import { Toaster } from "@acme/ui/toast";
+import { TooltipProvider } from "@acme/ui/tooltip";
 
 import { TRPCReactProvider } from "~/trpc/react";
 
@@ -62,11 +63,13 @@ export default function RootLayout(props: { children: React.ReactNode }) {
         )}
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <TRPCReactProvider>
-            <Navigation />
-            {props.children}
-          </TRPCReactProvider>
-          <Toaster />
+          <TooltipProvider>
+            <TRPCReactProvider>
+              <Navigation />
+              {props.children}
+            </TRPCReactProvider>
+            <Toaster />
+          </TooltipProvider>
         </ThemeProvider>
       </body>
     </html>
