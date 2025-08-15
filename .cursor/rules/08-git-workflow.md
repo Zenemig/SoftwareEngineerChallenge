@@ -1,9 +1,11 @@
 # Git Workflow & Conventional Commits
 
 ## Conventional Commits Standard
+
 This project follows the [Conventional Commits](https://www.conventionalcommits.org/) specification for all commit messages.
 
 ### Commit Message Format
+
 ```
 <type>[optional scope]: <description>
 
@@ -13,6 +15,7 @@ This project follows the [Conventional Commits](https://www.conventionalcommits.
 ```
 
 ### Commit Types
+
 - **feat**: A new feature
 - **fix**: A bug fix
 - **docs**: Documentation only changes
@@ -26,6 +29,7 @@ This project follows the [Conventional Commits](https://www.conventionalcommits.
 - **revert**: Reverts a previous commit
 
 ### Scope Examples for This Project
+
 - **ui**: UI component changes
 - **api**: tRPC API changes
 - **setup**: Setup router or setup-related functionality
@@ -37,6 +41,7 @@ This project follows the [Conventional Commits](https://www.conventionalcommits.
 - **config**: Configuration files
 
 ### Example Commit Messages
+
 ```bash
 feat(gallery): implement server-side data fetching with tRPC
 fix(likes): resolve state management issue in like button
@@ -53,12 +58,14 @@ chore: update Cursor rules structure
 When a user requests "commit work" or similar, follow this **MANDATORY** process:
 
 ### Step 1: Analyze Changes
+
 1. Check git status to see all modified, added, and deleted files
 2. Use git diff to understand what changes were made
 3. Categorize changes by type and scope
 4. Identify the primary purpose of the changes
 
 ### Step 2: Generate Commit Message
+
 1. Determine the appropriate conventional commit type
 2. Identify the most relevant scope (if applicable)
 3. Write a clear, concise description (50 characters or less)
@@ -66,7 +73,9 @@ When a user requests "commit work" or similar, follow this **MANDATORY** process
 5. Include breaking change footer if applicable
 
 ### Step 3: Present for Review
+
 **CRITICAL**: Present the suggested commit message to the user for review:
+
 ```
 Suggested commit message:
 feat(gallery): implement server-side data fetching with tRPC
@@ -80,11 +89,22 @@ Do you approve this commit message? (yes/no)
 ```
 
 ### Step 4: Wait for Approval
-- **DO NOT** stage files or create commit until user explicitly approves
+
+- **MANDATORY**: **NEVER** execute git commands without explicit user approval
+- **STOP EXECUTION**: AI must wait for user response before proceeding
+- **NO EXCEPTIONS**: Even for "obvious" commits, approval is required
 - Allow user to modify the message if needed
-- Only proceed after receiving clear approval
+- Only proceed after receiving clear "yes" or "approve"
+
+### ⚠️ CRITICAL ENFORCEMENT RULES ⚠️
+
+1. **NEVER run `git commit` without approval** - This is a hard rule with no exceptions
+2. **ALWAYS present the full commit message first** - User must see exactly what will be committed
+3. **STOP and WAIT** - Do not continue the workflow until explicit approval
+4. **If user says "commit work"** - This does NOT mean "auto-commit", it means "help me commit"
 
 ### Step 5: Execute Commit
+
 1. Stage all relevant files: `git add .`
 2. Create commit with approved message: `git commit -m "approved message"`
 3. Confirm commit was created successfully
@@ -92,6 +112,7 @@ Do you approve this commit message? (yes/no)
 ## Commit Message Guidelines
 
 ### Description Guidelines
+
 - Use imperative mood ("add" not "added" or "adds")
 - Start with lowercase letter
 - No period at the end
@@ -99,12 +120,14 @@ Do you approve this commit message? (yes/no)
 - Focus on what the change does, not why
 
 ### When to Include Body
+
 - Complex changes that need explanation
 - Multiple related changes in one commit
 - Breaking changes that need context
 - Implementation details that aren't obvious
 
 ### When to Include Footer
+
 - Breaking changes: `BREAKING CHANGE: <description>`
 - Issue references: `Fixes #123` or `Closes #456`
 - Co-authors: `Co-authored-by: Name <email>`
@@ -125,10 +148,40 @@ AI Agent:
 ```
 
 ## Quality Standards
+
 - Each commit should represent a logical unit of work
 - Avoid mixing different types of changes in one commit
 - Keep commits focused and atomic
 - Write commit messages that will be useful 6 months from now
 
+## Pre-Commit Validation Checklist
+
+Before ANY git commit operation, AI must verify:
+
+### Mandatory Checklist (All must be ✅)
+
+- [ ] **User Request Analysis**: User asked for commit help (not auto-commit)
+- [ ] **Changes Analyzed**: Ran `git status` and `git diff` to understand changes
+- [ ] **Message Generated**: Created appropriate conventional commit message
+- [ ] **Message Presented**: Showed complete commit message to user for review
+- [ ] **Approval Received**: User explicitly said "yes", "approve", or equivalent
+- [ ] **No Auto-Execution**: Did NOT run `git commit` before approval
+
+### Violation Prevention
+
+If ANY item above is ❌, **STOP** and do not proceed with commit.
+
+### Common User Phrases and Correct Responses
+
+- **"commit work"** → Present commit message for approval (DO NOT auto-commit)
+- **"git commit"** → Present commit message for approval (DO NOT auto-commit)
+- **"save changes"** → Present commit message for approval (DO NOT auto-commit)
+- **"yes"/"approve"** → Only THEN execute the commit
+
 ## Security Requirement
+
 **NEVER** create a commit without explicit user approval of the commit message. This ensures users maintain full control over their git history and commit messages.
+
+## Enforcement Mechanism
+
+If this rule is violated, update this document with stronger language and additional safeguards to prevent future violations.
