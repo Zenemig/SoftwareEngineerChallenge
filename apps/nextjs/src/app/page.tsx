@@ -1,4 +1,5 @@
 import type { Setup } from "~/hooks/use-setups";
+import { SetupCard } from "~/app/_components/setup-card";
 import { getSetups } from "~/hooks/use-setups";
 import { HydrateClient, prefetch, trpc } from "~/trpc/server";
 
@@ -48,16 +49,9 @@ export default async function GalleryPage() {
 
       {/* Gallery Grid */}
       <div className="w-full">
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <div className="grid grid-cols-1 grid-rows-[auto] gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {setups.map((setup: Setup) => (
-            <div
-              key={setup.id}
-              className="rounded-lg border bg-card p-6 text-card-foreground shadow-sm"
-            >
-              <h3 className="text-lg font-semibold leading-none tracking-tight">
-                {setup.title}
-              </h3>
-            </div>
+            <SetupCard key={setup.id} setup={setup} />
           ))}
         </div>
       </div>
