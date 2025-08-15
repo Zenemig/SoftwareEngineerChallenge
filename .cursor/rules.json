@@ -1,0 +1,64 @@
+{
+  "rules": [
+    {
+      "name": "Project Overview & Context",
+      "description": "Core project understanding, time constraints, and success criteria for the take-home assessment",
+      "glob": "**/*",
+      "path": ".cursor/rules/01-project-overview.md"
+    },
+    {
+      "name": "Core Technical Requirements",
+      "description": "Non-negotiable requirements: Server Component data fetching, client-side likes, Server Actions with Zod validation",
+      "glob": "apps/nextjs/src/app/**/*",
+      "path": ".cursor/rules/02-core-technical-requirements.md"
+    },
+    {
+      "name": "Technology Stack & Architecture",
+      "description": "tRPC usage patterns, UI component rules, data structures, and file organization standards",
+      "glob": "{apps/nextjs/src/**/*,packages/**/*}",
+      "path": ".cursor/rules/03-technology-stack.md"
+    },
+    {
+      "name": "Code Quality Standards",
+      "description": "TypeScript rules, React patterns, form handling, and error handling requirements",
+      "glob": "apps/nextjs/src/**/*.{ts,tsx}",
+      "path": ".cursor/rules/04-code-quality-standards.md"
+    },
+    {
+      "name": "Advanced Challenges",
+      "description": "Optional features: Optimistic UI, shared validation schemas, and advanced component patterns",
+      "glob": "apps/nextjs/src/**/*.{ts,tsx}",
+      "path": ".cursor/rules/05-advanced-challenges.md"
+    },
+    {
+      "name": "Constraints & Limitations",
+      "description": "What NOT to implement, development constraints, and scope limitations",
+      "glob": "**/*",
+      "path": ".cursor/rules/06-constraints-limitations.md"
+    },
+    {
+      "name": "Documentation Requirements",
+      "description": "Requirements for completing DESIGN_CHOICES.md and documentation best practices",
+      "glob": "DESIGN_CHOICES.md",
+      "path": ".cursor/rules/07-documentation-requirements.md"
+    },
+    {
+      "name": "Git Workflow & Conventional Commits",
+      "description": "Conventional commits standard and mandatory AI agent workflow for commit requests",
+      "glob": "**/*",
+      "path": ".cursor/rules/08-git-workflow.md"
+    },
+    {
+      "name": "Dynamic Rule Management & Evolution",
+      "description": "Process for creating, updating, and evolving rules as the project develops. AI agents should suggest new rules when patterns emerge.",
+      "glob": ".cursor/rules/**/*",
+      "path": ".cursor/rules/09-rule-management.md"
+    },
+    {
+      "name": "DESIGN_CHOICES.md Documentation Management",
+      "description": "Guidelines for maintaining DESIGN_CHOICES.md as a living document using the template structure, updating incrementally with completed work only.",
+      "glob": "DESIGN_CHOICES*.md",
+      "path": ".cursor/rules/10-design-choices-documentation.md"
+    }
+  ]
+}
