@@ -13,9 +13,10 @@ import { LikeButton } from "./like-button";
 
 interface SetupCardProps {
   setup: Setup;
+  priority?: boolean;
 }
 
-export function SetupCard({ setup }: SetupCardProps) {
+export function SetupCard({ setup, priority = false }: SetupCardProps) {
   return (
     <Card className="flex h-full flex-col overflow-hidden">
       {/* Image Section with Like Button Overlay */}
@@ -24,6 +25,7 @@ export function SetupCard({ setup }: SetupCardProps) {
           src={setup.imageUrl}
           alt={setup.title}
           className="object-cover"
+          priority={priority}
         />
 
         {/* Like Button Overlay */}

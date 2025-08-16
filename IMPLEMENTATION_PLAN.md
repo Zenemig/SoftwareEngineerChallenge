@@ -75,10 +75,12 @@ This document provides a comprehensive implementation plan for the "Rate My Setu
 - **Navigation System**: ✅ Centralized navigation component integrated into layout
 - **UI Components**: ✅ Card and Badge components added to @acme/ui package
 - **Custom Hooks**: ✅ `getSetups()` function with error handling and type safety
-- **Image Handling**: ✅ `ImageWithFallback` component for graceful error handling
+- **Image Handling**: ✅ `ImageWithFallback` component for graceful error handling and LCP optimization
 - **Next.js Configuration**: ✅ Added image domain configuration for external hosting
+- **Performance Optimization**: ✅ LCP image priority implementation for above-the-fold images
 - **Like Functionality**: ✅ **COMPLETED** (Phase 2.3) - Interactive like button with smooth animations, tooltips, and local state management
 - **Form Validation**: ✅ **COMPLETED** - Full implementation with Zod schema, Server Action, Form Component, and Toast integration (Phase 3)
+- **Performance Optimization**: ✅ **COMPLETED** - LCP image priority implementation to resolve Next.js performance warnings and improve Core Web Vitals
 
 ---
 
@@ -138,6 +140,7 @@ cd packages/ui && pnpm ui-add badge   # ✅ COMPLETED
 - ✅ Create reusable `ImageWithFallback` component for graceful image error handling
 - ✅ Enhance UI consistency using proper Card, CardHeader, CardContent, CardFooter, and Badge components
 - ✅ Note: Tags and description are not required for submission form, only display
+- ✅ **Performance Enhancement**: Implement LCP image priority for above-the-fold images to resolve Next.js performance warnings
 - ✅ **Enhancement Note**: While out of scope for this task, implementing full-screen image viewing would significantly improve user experience since viewing setup images is the main purpose of the application
 
 **Task 2.2 Technical Implementation Details:**
@@ -147,6 +150,17 @@ cd packages/ui && pnpm ui-add badge   # ✅ COMPLETED
 - **SetupCard**: Server Component (no "use client") for optimal performance and SEO
 - **ImageWithFallback**: Client Component handling image loading states and error fallbacks
 - **Hybrid Approach**: Server renders content, client handles only image interactions
+
+**Performance Optimization - LCP Image Priority:**
+
+- **Problem Identified**: Next.js LCP warning for above-the-fold images affecting Core Web Vitals
+- **Solution Implemented**: Priority loading for first 4 images (most likely above the fold)
+- **Technical Implementation**:
+  - Added `priority?: boolean` prop to `ImageWithFallback` component
+  - Updated `SetupCard` to accept and pass priority prop
+  - Gallery page passes `priority={index < 4}` to prioritize first 4 images
+- **Performance Impact**: Improves LCP metric without over-prioritizing all images
+- **Responsive Consideration**: Covers first 4 rows on mobile, first row on desktop
 
 **Layout & Styling:**
 

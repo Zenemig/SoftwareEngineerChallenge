@@ -9,6 +9,7 @@ interface ImageWithFallbackProps {
   alt: string;
   className?: string;
   sizes?: string;
+  priority?: boolean;
 }
 
 export function ImageWithFallback({
@@ -16,6 +17,7 @@ export function ImageWithFallback({
   alt,
   className,
   sizes = "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw",
+  priority = false,
 }: ImageWithFallbackProps) {
   const [imageError, setImageError] = useState(false);
 
@@ -44,6 +46,7 @@ export function ImageWithFallback({
       fill
       className={className}
       sizes={sizes}
+      priority={priority}
       onError={handleImageError}
     />
   );

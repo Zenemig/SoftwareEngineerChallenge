@@ -50,8 +50,12 @@ export default async function GalleryPage() {
       {/* Gallery Grid */}
       <div className="w-full">
         <div className="grid grid-cols-1 grid-rows-[auto] gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {setups.map((setup: Setup) => (
-            <SetupCard key={setup.id} setup={setup} />
+          {setups.map((setup: Setup, index: number) => (
+            <SetupCard
+              key={setup.id}
+              setup={setup}
+              priority={index < 4} // Prioritize first 4 images (above the fold)
+            />
           ))}
         </div>
       </div>
