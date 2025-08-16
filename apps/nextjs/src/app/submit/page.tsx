@@ -1,4 +1,74 @@
+"use client";
+
+import { useState } from "react";
+
+import type { SetupSubmission } from "@acme/validators";
+import {
+  Button,
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+  Input,
+  Label,
+  toast,
+  useForm,
+} from "@acme/ui";
+import { setupSubmissionSchema } from "@acme/validators";
+
+import { submitSetup } from "./actions";
+
 export default function SubmitPage() {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const form = useForm<SetupSubmission, SetupSubmission>({
+    schema: setupSubmissionSchema,
+    defaultValues: {
+      title: "",
+      author: "",
+      imageUrl: "",
+    },
+  });
+
+  const onSubmit = async (data: SetupSubmission) => {
+    setIsSubmitting(true);
+
+    try {
+      // Create FormData for the server action
+      const formData = new FormData();
+      formData.append("title", data.title);
+      formData.append("author", data.author);
+      formData.append("imageUrl", data.imageUrl);
+
+      const result = await submitSetup(formData);
+
+      if (result.success) {
+        toast.success("Setup submitted successfully! Thank you for sharing.");
+        // Reset form on success
+        form.reset();
+      } else {
+        toast.error("Please fix the errors and try again.");
+
+        // Set field-specific errors from server validation
+        if (result.errors) {
+          Object.entries(result.errors).forEach(([field, messages]) => {
+            if (field !== "_form" && messages.length > 0) {
+              form.setError(field as keyof SetupSubmission, {
+                type: "server",
+                message: messages[0],
+              });
+            }
+          });
+        }
+      }
+    } catch {
+      toast.error("An unexpected error occurred. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <main className="container mx-auto flex flex-col items-center justify-center gap-8 px-4 py-8">
       <h1 className="text-5xl font-extrabold tracking-tight sm:text-[5rem]">
@@ -9,11 +79,88 @@ export default function SubmitPage() {
         Share your amazing desk setup with the community
       </p>
 
-      {/* Form implementation will be added in Phase 3 */}
       <div className="w-full max-w-2xl">
-        <p className="text-center text-muted-foreground">
-          Form implementation coming in Phase 3
-        </p>
+        <Card>
+          <CardHeader>
+            <CardTitle>Setup Details</CardTitle>
+            <CardDescription>
+              Fill in the details below to submit your setup. All fields are
+              required.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+              {/* Title Field */}
+              <div className="space-y-2">
+                <Label htmlFor="title">Title</Label>
+                <Input
+                  id="title"
+                  placeholder="Enter a descriptive title for your setup"
+                  {...form.register("title")}
+                  className={
+                    form.formState.errors.title ? "border-destructive" : ""
+                  }
+                />
+                {form.formState.errors.title && (
+                  <p className="text-sm text-destructive">
+                    {form.formState.errors.title.message ?? "Title is required"}
+                  </p>
+                )}
+              </div>
+
+              {/* Author Field */}
+              <div className="space-y-2">
+                <Label htmlFor="author">Author</Label>
+                <Input
+                  id="author"
+                  placeholder="Your name or username"
+                  {...form.register("author")}
+                  className={
+                    form.formState.errors.author ? "border-destructive" : ""
+                  }
+                />
+                {form.formState.errors.author && (
+                  <p className="text-sm text-destructive">
+                    {form.formState.errors.author.message ??
+                      "Author is required"}
+                  </p>
+                )}
+              </div>
+
+              {/* Image URL Field */}
+              <div className="space-y-2">
+                <Label htmlFor="imageUrl">Image URL</Label>
+                <Input
+                  id="imageUrl"
+                  type="url"
+                  placeholder="https://example.com/image.jpg"
+                  {...form.register("imageUrl")}
+                  className={
+                    form.formState.errors.imageUrl ? "border-destructive" : ""
+                  }
+                />
+                {form.formState.errors.imageUrl && (
+                  <p className="text-sm text-destructive">
+                    {form.formState.errors.imageUrl.message ??
+                      "Valid image URL is required"}
+                  </p>
+                )}
+                <p className="text-xs text-muted-foreground">
+                  Provide a direct link to an image of your setup
+                </p>
+              </div>
+
+              {/* Submit Button */}
+              <Button
+                type="submit"
+                disabled={isSubmitting || !form.formState.isValid}
+                className="w-full"
+              >
+                {isSubmitting ? "Submitting..." : "Submit Setup"}
+              </Button>
+            </form>
+          </CardContent>
+        </Card>
       </div>
     </main>
   );
