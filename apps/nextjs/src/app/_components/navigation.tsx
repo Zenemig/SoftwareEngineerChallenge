@@ -5,7 +5,8 @@ import { Button } from "@acme/ui/button";
 export function Navigation() {
   return (
     <nav className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container mx-auto flex items-center justify-between px-4 py-4">
+      {/* Stack vertically on very small screens, horizontal on larger screens */}
+      <div className="container mx-auto flex flex-col gap-4 px-4 py-4 sm:flex-row sm:items-center sm:justify-between">
         <Link href="/" className="text-xl font-bold text-foreground">
           Rate My Setup
         </Link>
