@@ -28,7 +28,7 @@ export function LikeButton({ initialLikes }: LikeButtonProps) {
       <TooltipTrigger asChild>
         <button
           onClick={handleLike}
-          className="flex items-center gap-1 rounded-full bg-black/50 px-2 py-1 text-xs font-medium text-white backdrop-blur-sm transition-all duration-200 hover:scale-105 hover:bg-black/70"
+          className="flex items-center gap-1 rounded-full bg-black/50 px-2 py-1 text-xs font-medium text-white backdrop-blur-sm transition-all duration-300 ease-out hover:scale-105 hover:bg-black/70 hover:backdrop-blur-md"
           aria-label={isLiked ? "Unlike setup" : "Like setup"}
         >
           <div className="relative h-3 w-3">

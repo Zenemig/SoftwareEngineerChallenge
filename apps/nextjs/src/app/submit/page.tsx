@@ -97,12 +97,12 @@ export default function SubmitPage() {
                   id="title"
                   placeholder="Enter a descriptive title for your setup"
                   {...form.register("title")}
-                  className={
+                  className={`transition-all duration-200 focus:scale-[1.02] focus:ring-2 focus:ring-primary/20 ${
                     form.formState.errors.title ? "border-destructive" : ""
-                  }
+                  }`}
                 />
                 {form.formState.errors.title && (
-                  <p className="text-sm text-destructive">
+                  <p className="text-sm text-destructive duration-200 animate-in fade-in-0 slide-in-from-top-1">
                     {form.formState.errors.title.message ?? "Title is required"}
                   </p>
                 )}
@@ -115,12 +115,12 @@ export default function SubmitPage() {
                   id="author"
                   placeholder="Your name or username"
                   {...form.register("author")}
-                  className={
+                  className={`transition-all duration-200 focus:scale-[1.02] focus:ring-2 focus:ring-primary/20 ${
                     form.formState.errors.author ? "border-destructive" : ""
-                  }
+                  }`}
                 />
                 {form.formState.errors.author && (
-                  <p className="text-sm text-destructive">
+                  <p className="text-sm text-destructive duration-200 animate-in fade-in-0 slide-in-from-top-1">
                     {form.formState.errors.author.message ??
                       "Author is required"}
                   </p>
@@ -135,12 +135,12 @@ export default function SubmitPage() {
                   type="url"
                   placeholder="https://example.com/image.jpg"
                   {...form.register("imageUrl")}
-                  className={
+                  className={`transition-all duration-200 focus:scale-[1.02] focus:ring-2 focus:ring-primary/20 ${
                     form.formState.errors.imageUrl ? "border-destructive" : ""
-                  }
+                  }`}
                 />
                 {form.formState.errors.imageUrl && (
-                  <p className="text-sm text-destructive">
+                  <p className="text-sm text-destructive duration-200 animate-in fade-in-0 slide-in-from-top-1">
                     {form.formState.errors.imageUrl.message ??
                       "Valid image URL is required"}
                   </p>
@@ -154,9 +154,16 @@ export default function SubmitPage() {
               <Button
                 type="submit"
                 disabled={isSubmitting || !form.formState.isValid}
-                className="w-full"
+                className="w-full transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] disabled:scale-100"
               >
-                {isSubmitting ? "Submitting..." : "Submit Setup"}
+                {isSubmitting ? (
+                  <span className="flex items-center gap-2">
+                    <div className="h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
+                    Submitting...
+                  </span>
+                ) : (
+                  "Submit Setup"
+                )}
               </Button>
             </form>
           </CardContent>
